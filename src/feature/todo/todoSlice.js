@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const initialState = { todos: [], theme: false, edit: false, editInfo: "" };
+const initialState = { todos: JSON.parse(localStorage.getItem('TodoLists')) !== null? JSON.parse(localStorage.getItem('TodoLists'))  :  [], theme: false, edit: false, editInfo: "" };
 
 const todoSlice = createSlice({
   name: "todo",
