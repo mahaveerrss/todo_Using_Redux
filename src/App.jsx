@@ -20,17 +20,33 @@ function App() {
     }
   },[todos])
 
+  useEffect(()=>{
+     const html =  document.querySelector('html')
+      
+       
+     if(theme){
+      html.style.backgroundColor = 'white'
+      
+     }
+     else{
+      html.style.backgroundColor = 'rgb(55,65,81)'
+
+     }
+   
+  },[theme])
+
   return (
     <div
-      className={`flex  w-full h-full flex-col justify-center items-center gap-5 ${
-        theme ? "bg-white" : "bg-gray-700"
-      }  transition-colors ease-linear `}
+      className={`flex p-5      w-full h-fit flex-col justify-center items-center gap-5   `}
     >
       <h1 className="bg-red-500 px-2 py-1 text-white rounded-md shadow-sm  shadow-black cursor-default ">
         React Redux Toolkit
       </h1>
-      <AddTodo />
+     <div className="flex p-5   w-full h-fit flex-col justify-center items-center gap-5">
+     <AddTodo />
       <Todos />
+ 
+     </div>
     </div>
   );
 }

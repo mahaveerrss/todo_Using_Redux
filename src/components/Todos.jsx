@@ -9,7 +9,7 @@ function Todos() {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div className="">
       <h1 className="bg-blue-500 px-10 text-white  rounded-md font-bold">
         Todo List
       </h1>
@@ -22,8 +22,8 @@ function Todos() {
         )}
         {todos.map((todo, index) => (
           <div
-            className={`
-      flex justify-around   gap-2 ${theme ? "text-black" : "text-white"}`}
+            className={`  
+      flex justify-around px-0.5 rounded-md  gap-2 ${theme ? "text-black" : "text-white"}`}
             key={todo.id}
           >
             <span className="">{index + 1 + "."}</span>

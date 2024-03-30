@@ -21,6 +21,9 @@ function AddTodo() {
     e.preventDefault();
     if (input.trim().length > 0 && !edit) {
       dispatch(addTodo(input.trimStart()));
+      setInput("");
+
+
     } else if (input.trim().length > 0 && edit) {
       dispatch(updateTodo({ id: editInfo, text: input }));
       dispatch(setEdit());
@@ -29,7 +32,7 @@ function AddTodo() {
   };
 
   return (
-    <div className="flex justify-center items-center gap-2">
+    <div className="flex   justify-center items-center gap-2">
       <form className="flex items-center justify-center gap-2" onSubmit={onSub}>
         <input
           type="text"
