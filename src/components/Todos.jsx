@@ -1,17 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo, setEdit, setEditInfo } from "../feature/todo/todoSlice";
+import {
+  removeTodo,
+  setEdit,
+  setEditInfo,
+  setEditVal,
+} from "../feature/todo/todoSlice";
 
 function Todos() {
   const todos = useSelector((state) => state.todos);
   const theme = useSelector((state) => state.theme);
   const edit = useSelector((state) => state.edit);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
+
+  const searcher = (e) => {
+    setSearch(e.target.value.trimStart());
+  };
 
   return (
     <div className="">
-      <h1 className="bg-blue-500 px-10 text-white  rounded-md font-bold">
-        Todo List
+      <h1 className=" flex gap-2 bg-blue-500 px-10 text-white  rounded-md font-bold">
+        Todo List{" "}
+        {todos.length > 0 ? (
+          <div className={` rounded-sm flex justify-around ${theme ? 'bg-gray-400 ' : 'bg-white' }`}>
+            <input
+              readOnly={edit}
+              onChange={(e) => searcher(e)}
+              className={`pl-2 rounded-sm     ${theme ? 'bg-gray-400 text-black placeholder:text-black' : 'bg-white text-black' }`}
+              placeholder="Search here."
+              value={search}
+              type="text"
+            />
+            <button
+              onClick={() => {
+                setSearch("");
+              }}
+            >
+              ❌
+            </button>
+          </div>
+        ) : null}
       </h1>
 
       <div className="flex mt-5 flex-col gap-2">
@@ -20,34 +49,42 @@ function Todos() {
             No Todo Availabel!
           </h1>
         )}
-        {todos.map((todo, index) => (
-          <div
-            className={`  
-      flex justify-around px-0.5 rounded-md  gap-2 ${theme ? "text-black" : "text-white"}`}
-            key={todo.id}
-          >
-            <span className="">{index + 1 + "."}</span>
-            {todo.text}
+        {!search.length > 0
+          ? todos.map((todo, index) => (
+              <div
+                className={`  
+      flex justify-around px-0.5 rounded-md  gap-2 ${
+        theme ? "text-black" : "text-white"
+      }`}
+                key={todo.id}
+              >
+                <span className="">{index + 1 + "."}</span>
+                {todo.text}
 
-            <button
-              disabled={edit}
-              className="bg-green-500 text-white px-2 rounded-md disabled:bg-green-300"
-              onClick={() => {
-                dispatch(setEdit());
-                dispatch(setEditInfo(todo.id));
-              }}
-            >
-              Edit
-            </button>
-            <button
-              disabled={edit}
-              className="bg-red-500 text-white px-2 rounded-md disabled:bg-red-300 "
-              onClick={(e) => dispatch(removeTodo(todo.id))}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
+                <button
+                  disabled={edit}
+                  className="bg-green-500 text-white px-2 rounded-md disabled:bg-green-300"
+                  onClick={() => {
+                    dispatch(setEdit());
+                    dispatch(setEditInfo(todo.id));
+                    dispatch(setEditVal(todo.text));
+                  }}
+                >
+                  ✏
+                </button>
+                <button
+                  disabled={edit}
+                  className="bg-red-500 text-white px-2 rounded-md disabled:bg-red-300 "
+                  onClick={(e) => dispatch(removeTodo(todo.id))}
+                >
+                  🗑
+                </button>
+              </div>
+            ))
+          : null  ? null :  <h1 className="text-center  font-bold text-white rounded-md shadow-sm shadow-inner shadow-black bg-red-500" key={'notFound'}>No Matching TODOS!</h1> 
+            }
+            
+               
       </div>
     </div>
   );

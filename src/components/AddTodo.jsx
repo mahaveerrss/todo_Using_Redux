@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTodo,
@@ -16,6 +16,7 @@ function AddTodo() {
   const theme = useSelector((state) => state.theme);
   const edit = useSelector((state) => state.edit);
   const editInfo = useSelector((state) => state.editInfo);
+  const editVal = useSelector((state) => state.editVal);
 
   const onSub = (e) => {
     e.preventDefault();
@@ -31,6 +32,10 @@ function AddTodo() {
     }
   };
 
+   useEffect(()=>{
+    edit ? setInput(editVal) : setInput('');
+   },[edit])
+
   return (
     <div className="flex   justify-center items-center gap-2">
       <form className="flex items-center justify-center gap-2" onSubmit={onSub}>
@@ -38,17 +43,22 @@ function AddTodo() {
           type="text"
           className="bg-gray-200 pl-2 rounded-md"
           placeholder="Enter Todo..."
-          value={input}
+          value={ input }
           onChange={(e) => setInput(e.target.value)}
         />
         {edit ? (
           <button className="bg-blue-500 px-2 text-white rounded-md">
-            Save
+          ✔
+          </button>
+        ) : null}
+        {edit ? (
+          <button onClick={()=>{dispatch(setEdit()); setInput('')}} className="bg-red-500 px-2 text-white rounded-md">
+            ❌
           </button>
         ) : null}
         {!edit ? (
           <button className="bg-green-500 px-2 text-white rounded-md">
-            Add
+            📥
           </button>
         ) : null}
       </form>
@@ -68,7 +78,7 @@ function AddTodo() {
             : "text-black px-2 rounded-md bg-slate-500 cursor-pointer select-none"
         }
       >
-        Theme : {!theme ? "Dark" : "Light"}
+        Theme : {!theme ? "🌚" : "🌞"}
       </label>
     </div>
   );

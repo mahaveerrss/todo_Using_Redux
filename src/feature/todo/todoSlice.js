@@ -7,6 +7,7 @@ const initialState = {
       : [],
   theme: false,
   edit: false,
+  editVal: '',
   editInfo: "",
 };
 
@@ -37,6 +38,9 @@ const todoSlice = createSlice({
           : todo
       );
     },
+    setEditVal: (state,action)=>{
+      state.editVal = action.payload
+    }
   },
 });
 
@@ -47,6 +51,7 @@ export const {
   setEdit,
   updateTodo,
   setEditInfo,
+  setEditVal,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
