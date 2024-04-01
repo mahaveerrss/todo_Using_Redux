@@ -29,11 +29,11 @@ function Todos() {
       <h1 className=" flex gap-2 bg-blue-500 px-10 text-white  rounded-md font-bold">
         Todo List{" "}
         {todos.length > 0 ? (
-          <div className="bg-white rounded-sm flex justify-around">
+          <div className={`bg-white rounded-sm flex justify-around ${theme ? 'bg-gray-400 text-black': ''}`}>
             <input
               readOnly={edit}
               onChange={(e) => searcher(e)}
-              className="pl-2 rounded-sm text-black"
+              className={`pl-2 rounded-sm   ${theme ? 'bg-gray-400 text-white placeholder:text-white': 'text-black placeholder:text-black '}`}
               placeholder="Search here."
               value={search}
               type="text"
