@@ -7,6 +7,7 @@ import {
   setEditInfo,
   setEdit,
 } from "../feature/todo/todoSlice";
+import { list } from "postcss";
 
 function AddTodo() {
   const [input, setInput] = useState("");
@@ -83,5 +84,8 @@ function AddTodo() {
     </div>
   );
 }
+
+
+
 
 export default AddTodo;

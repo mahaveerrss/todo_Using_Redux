@@ -7,7 +7,9 @@ function App() {
   const theme = useSelector((state) => state.theme);
   const todos = useSelector((state) => state.todos);
 
-
+ 
+  
+ 
   useEffect(()=>{
    
     if(localStorage.getItem('TodoLists')){
